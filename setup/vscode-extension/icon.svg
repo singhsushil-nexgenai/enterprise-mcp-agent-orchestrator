@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Rocket body -->
+  <path d="M12 2C12 2 7 7 7 13c0 2.5 1 4.5 2 6l3-2 3 2c1-1.5 2-3.5 2-6 0-6-5-11-5-11z"/>
+  <!-- Fins -->
+  <path d="M7 14l-2 4 3-1"/>
+  <path d="M17 14l2 4-3-1"/>
+  <!-- Window -->
+  <circle cx="12" cy="10" r="1.5"/>
+</svg>

@@ -1,0 +1,169 @@
+﻿{
+  "inputs": [
+    {
+      "id": "snowflakePAT",
+      "type": "promptString",
+      "description": "Snowflake Programmatic Access Token (PAT) — generate in Snowsight → My Profile → Programmatic Access Tokens",
+      "password": true
+    },
+    {
+      "id": "dagsterToken",
+      "type": "promptString",
+      "description": "Dagster Cloud API token — get from https://[Company].dagster.cloud → Settings → User tokens",
+      "password": true
+    },
+    {
+      "id": "atlassianEmail",
+      "type": "promptString",
+      "description": "Your Atlassian / [Company] email address (e.g. john.doe@[Company].com)"
+    },
+    {
+      "id": "atlassianToken",
+      "type": "promptString",
+      "description": "Atlassian API token (used for both Jira and Confluence) — generate at https://id.atlassian.com/manage-profile/security/api-tokens",
+      "password": true
+    },
+    {
+      "id": "mcApiKeyId",
+      "type": "promptString",
+      "description": "Monte Carlo API Key ID — generate in Monte Carlo → Settings → API → Generate key"
+    },
+    {
+      "id": "mcApiSecret",
+      "type": "promptString",
+      "description": "Monte Carlo API Secret — generate in Monte Carlo → Settings → API → Generate key",
+      "password": true
+    },
+    {
+      "id": "databricksPat",
+      "type": "promptString",
+      "description": "Databricks Personal Access Token (optional) — generate in Databricks → User Settings → Access Tokens",
+      "password": true
+    }
+  ],
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "alwaysAllow": [
+        "get_file_contents", "create_or_update_file", "push_files", "delete_file",
+        "search_repositories", "create_repository", "fork_repository",
+        "create_branch", "list_branches", "list_commits", "get_commit",
+        "create_pull_request", "create_pull_request_with_copilot",
+        "list_pull_requests", "merge_pull_request", "update_pull_request",
+        "update_pull_request_branch", "pull_request_read", "pull_request_review_write",
+        "add_comment_to_pending_review", "add_reply_to_pull_request_comment",
+        "request_copilot_review", "list_issues", "issue_read", "issue_write",
+        "sub_issue_write", "add_issue_comment", "list_issue_types", "list_issue_fields",
+        "search_issues", "search_pull_requests", "search_code", "search_commits",
+        "search_users", "get_me", "list_tags", "get_tag", "list_releases",
+        "get_latest_release", "get_release_by_tag", "list_repository_collaborators",
+        "get_teams", "get_team_members", "get_label", "assign_copilot_to_issue",
+        "get_copilot_job_status", "run_secret_scanning"
+      ]
+    },
+    "snowflake": {
+      "type": "stdio",
+      "command": "${env:APPDATA}\\npm\\snowflake-mcp.cmd",
+      "args": [],
+      "env": {
+        "SNOWFLAKE_ACCOUNT":        "[Company]-dtvprod",
+        "SNOWFLAKE_USERNAME":       "<YOUR_EMAIL@MY[Company].COM>",
+        "SNOWFLAKE_AUTHENTICATOR":  "snowflake",
+        "SNOWFLAKE_PASSWORD":        "${input:snowflakePAT}",
+        "SNOWFLAKE_ROLE":           "<YOUR_SNOWFLAKE_ROLE>",
+        "SNOWFLAKE_WAREHOUSE":      "CDO_MKTG_ANLTCS_XL_WH",
+        "SNOWFLAKE_DATABASE":       "<YOUR_SNOWFLAKE_DATABASE>",
+        "SNOWFLAKE_SCHEMA":         "PUBLIC",
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0",
+        "NODE_EXTRA_CA_CERTS":      "${env:USERPROFILE}\\corporate_root_ca.pem"
+      },
+      "alwaysAllow": [
+        "describe_table", "execute_query", "explain_query", "get_primary_keys",
+        "get_table_row_count", "get_table_sample", "list_databases",
+        "list_schemas", "list_tables", "list_views", "test_connection"
+      ]
+    },
+    "monte-carlo": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "${env:USERPROFILE}\\monte_carlo_mcp.py"
+      ],
+      "env": {
+        "MCD_API_KEY":    "${input:mcApiKeyId}",
+        "MCD_API_SECRET": "${input:mcApiSecret}",
+        "MCD_BASE_URL":   "https://api.getmontecarlo.com/graphql",
+        "DTV_CA_CERT":    "${env:USERPROFILE}\\corporate_root_ca.pem"
+      },
+      "alwaysAllow": [
+        "mc_list_tables", "mc_get_incidents", "mc_get_table_monitors",
+        "mc_get_table_lineage", "mc_get_table_health", "mc_run_graphql"
+      ]
+    },
+    "dagster": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "${env:USERPROFILE}\\dagster_mcp.py"
+      ],
+      "env": {
+        "DAGSTER_TOKEN": "${input:dagsterToken}",
+        "DTV_CA_CERT":   "${env:USERPROFILE}\\corporate_root_ca.pem"
+      },
+      "alwaysAllow": [
+        "dagster_list_jobs", "dagster_get_job_assets",
+        "dagster_get_asset_deps", "dagster_run_graphql"
+      ]
+    },
+    "confluence": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "${env:USERPROFILE}\\confluence_mcp.py"
+      ],
+      "env": {
+        "ATLASSIAN_EMAIL": "${input:atlassianEmail}",
+        "ATLASSIAN_TOKEN": "${input:atlassianToken}",
+        "DTV_CA_CERT":     "${env:USERPROFILE}\\corporate_root_ca.pem"
+      },
+      "alwaysAllow": [
+        "confluence_search", "confluence_get_page",
+        "confluence_get_spaces", "confluence_get_page_children"
+      ]
+    },
+    "jira": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "${env:USERPROFILE}\\jira_mcp.py"
+      ],
+      "env": {
+        "ATLASSIAN_EMAIL": "${input:atlassianEmail}",
+        "ATLASSIAN_TOKEN": "${input:atlassianToken}",
+        "DTV_CA_CERT":     "${env:USERPROFILE}\\corporate_root_ca.pem"
+      },
+      "alwaysAllow": [
+        "jira_search", "jira_get_issue", "jira_list_projects",
+        "jira_get_issue_comments", "jira_get_sprint_issues"
+      ]
+    },
+    "databricks": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "${env:USERPROFILE}\\databricks_mcp.py"
+      ],
+      "env": {
+        "DATABRICKS_HOST":  "https://<your-databricks-host>.cloud.databricks.com",
+        "DATABRICKS_TOKEN": "${input:databricksPat}",
+        "DTV_CA_CERT":      "${env:USERPROFILE}\\corporate_root_ca.pem"
+      },
+      "alwaysAllow": [
+        "databricks_execute_sql", "databricks_list_catalogs",
+        "databricks_list_schemas", "databricks_list_tables",
+        "databricks_describe_table"
+      ]
+    }
+  }
+}

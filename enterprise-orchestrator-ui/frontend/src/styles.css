@@ -1,0 +1,81 @@
+:root {
+  --bg: #f8f9fa;
+  --card: #ffffff;
+  --primary: #0d6efd;
+  --success: #198754;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --muted: #6c757d;
+  --border: #dee2e6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: #212529;
+  line-height: 1.5;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+
+h1 { font-size: 1.75rem; margin-bottom: 1.5rem; }
+h2 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--muted); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.form-row label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+.form-row input, .form-row select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 220px;
+}
+
+.btn {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: #0b5ed7; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { background: #bb2d3b; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); font-weight: 600; }
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.badge-submitted { background: #e2e3e5; color: #41464b; }
+.badge-queued { background: #cff4fc; color: #055160; }
+.badge-running { background: #fff3cd; color: #664d03; }
+.badge-completed { background: #d1e7dd; color: #0f5132; }
+.badge-failed { background: #f8d7da; color: #842029; }
+
+.audit-panel { margin-top: 1rem; max-height: 300px; overflow-y: auto; }
+.audit-item { padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
+.audit-item .ts { color: var(--muted); margin-right: 0.5rem; }
+
+.refresh-btn { float: right; font-size: 0.8rem; background: none; border: 1px solid var(--border); border-radius: 4px; padding: 0.25rem 0.5rem; cursor: pointer; }
+.refresh-btn:hover { background: var(--bg); }

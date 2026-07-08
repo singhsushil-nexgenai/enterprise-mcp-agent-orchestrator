@@ -1,0 +1,38 @@
+﻿Create an executive pipeline observability dashboard for the YOUR-ORG data orchestration platform.
+
+This dashboard tracks job health, data quality, and optimization status across CMPGN, UMA, and RVNU repositories.
+
+**Page 1 — Pipeline Health Overview**
+- KPI counter: Total unique jobs (count distinct job_name from tbl_job_runs)
+- KPI counter: Success rate % (last 7 days)
+- KPI counter: Failed jobs count (status = 'Failed', last 7 days)
+- KPI counter: Avg job duration (minutes, last 7 days)
+- Bar chart: Job count by status (Success, Failed, Running) from tbl_job_runs
+- Table: Last 10 failed jobs (columns: job_name, status, start_time, end_time, duration_minutes)
+
+**Page 2 — Data Quality Status (Monte Carlo)**
+- KPI counter: Tables with active incidents
+- KPI counter: Critical-severity incidents (count)
+- KPI counter: Incident resolution rate %
+- Bar chart: Incident count by incident_type (top 10 from tbl_dq_incidents)
+- Line chart: Daily incident trend (last 30 days) — total, critical, active
+- Table: Top 20 tables with incidents (columns: table_name, incident_type, severity, incident_count, latest_incident)
+
+**Page 3 — SQL Optimization Recommendations**
+- Bar chart: Top 10 jobs needing optimization (by estimated_improvement_pct)
+- KPI counter: Total optimization opportunities
+- KPI counter: Total estimated cost savings ($)
+- Table: Optimization details (columns: job_name, parameter_name, recommendation, priority, estimated_improvement_pct, savings)
+
+**Page 4 — Performance Trends**
+- Line chart: Daily job run volume (last 30 days) — success runs, failed runs, total runs
+- Line chart: Avg execution time per job (top 5 longest-running jobs, last 30 days)
+
+**Global filters:**
+- Repository (CMPGN, UMA, RVNU, ALL) — multi-select
+- Date range picker (start_date, end_date)
+
+**Dashboard styling:**
+- Use red for failed/critical items
+- Use green for success/resolved
+- Use yellow for warning/medium priority

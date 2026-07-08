@@ -1,0 +1,31 @@
+{
+  "name": "mcp-launcher",
+  "displayName": "MCP Launcher",
+  "description": "Launch MCP Orchestrator jobs from a VS Code sidebar panel",
+  "version": "1.0.0",
+  "publisher": "local",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mcp-launcher-container",
+          "title": "MCP Launcher",
+          "icon": "./icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "mcp-launcher-container": [
+        {
+          "type": "webview",
+          "id": "mcpLauncherView",
+          "name": "MCP Orchestrator"
+        }
+      ]
+    }
+  }
+}

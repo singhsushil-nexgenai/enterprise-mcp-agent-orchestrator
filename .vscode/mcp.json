@@ -1,0 +1,147 @@
+{
+  "inputs": [
+    {
+      "id": "snowflakePassword",
+      "type": "promptString",
+      "description": "Enter your Snowflake password",
+      "password": true
+    },
+    {
+      "id": "dagsterToken",
+      "type": "promptString",
+      "description": "Enter your Dagster Cloud API token",
+      "password": true
+    },
+    {
+      "id": "atlassianEmail",
+      "type": "promptString",
+      "description": "Enter your Atlassian email address"
+    },
+    {
+      "id": "atlassianToken",
+      "type": "promptString",
+      "description": "Enter your Atlassian API token",
+      "password": true
+    },
+    {
+      "id": "monteCarloKeyId",
+      "type": "promptString",
+      "description": "Enter your Monte Carlo API Key ID"
+    },
+    {
+      "id": "monteCarloKeySecret",
+      "type": "promptString",
+      "description": "Enter your Monte Carlo API Key Secret",
+      "password": true
+    }
+  ],
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "alwaysAllow": [
+        "get_file_contents", "create_or_update_file", "push_files", "delete_file",
+        "search_repositories", "create_repository", "fork_repository",
+        "create_branch", "list_branches", "list_commits", "get_commit",
+        "create_pull_request", "list_pull_requests", "merge_pull_request",
+        "update_pull_request", "pull_request_read", "pull_request_review_write",
+        "list_issues", "issue_read", "issue_write", "add_issue_comment",
+        "search_issues", "search_code", "search_commits", "get_me",
+        "list_tags", "list_releases", "get_latest_release"
+      ]
+    },
+    "snowflake": {
+      "type": "stdio",
+      "command": "<USER_HOME>\\AppData\\Roaming\\npm\\snowflake-mcp.cmd",
+      "args": [],
+      "env": {
+        "SNOWFLAKE_ACCOUNT": "<YOUR-SNOWFLAKE-ACCOUNT>",
+        "SNOWFLAKE_USERNAME": "<YOUR-SNOWFLAKE-USERNAME>",
+        "SNOWFLAKE_AUTHENTICATOR": "snowflake",
+        "SNOWFLAKE_PASSWORD": "${input:snowflakePassword}",
+        "SNOWFLAKE_ROLE": "<YOUR-SNOWFLAKE-ROLE>",
+        "SNOWFLAKE_WAREHOUSE": "<YOUR-SNOWFLAKE-WAREHOUSE>",
+        "SNOWFLAKE_DATABASE": "<YOUR-SNOWFLAKE-DATABASE>",
+        "SNOWFLAKE_SCHEMA": "PUBLIC",
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0",
+        "NODE_EXTRA_CA_CERTS": "<USER_HOME>\\corporate_root_ca.pem"
+      },
+      "alwaysAllow": [
+        "describe_table", "execute_query", "explain_query", "get_primary_keys",
+        "get_table_row_count", "get_table_sample", "list_databases",
+        "list_schemas", "list_tables", "list_views", "test_connection"
+      ]
+    },
+    "monte-carlo": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["<USER_HOME>\\monte_carlo_mcp.py"],
+      "env": {
+        "MCD_BASE_URL": "https://api.getmontecarlo.com/graphql",
+        "MCD_KEY_ID": "${input:monteCarloKeyId}",
+        "MCD_KEY_SECRET": "${input:monteCarloKeySecret}"
+      },
+      "alwaysAllow": [
+        "mc_list_tables", "mc_get_incidents", "mc_get_table_monitors",
+        "mc_get_table_lineage", "mc_get_table_health", "mc_run_graphql"
+      ]
+    },
+    "dagster": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["<USER_HOME>\\dagster_mcp.py"],
+      "env": {
+        "DAGSTER_URL": "https://your-org.dagster.cloud/prod",
+        "DAGSTER_TOKEN": "${input:dagsterToken}"
+      },
+      "alwaysAllow": [
+        "dagster_list_jobs", "dagster_get_job_assets",
+        "dagster_get_asset_deps", "dagster_run_graphql"
+      ]
+    },
+    "confluence": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["<USER_HOME>\\confluence_mcp.py"],
+      "env": {
+        "CONFLUENCE_BASE_URL": "https://your-org.atlassian.net/wiki",
+        "ATLASSIAN_EMAIL": "${input:atlassianEmail}",
+        "ATLASSIAN_TOKEN": "${input:atlassianToken}"
+      },
+      "alwaysAllow": [
+        "confluence_search", "confluence_get_page",
+        "confluence_get_spaces", "confluence_get_page_children"
+      ]
+    },
+    "jira": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["<USER_HOME>\\jira_mcp.py"],
+      "env": {
+        "JIRA_BASE_URL": "https://your-org.atlassian.net",
+        "ATLASSIAN_EMAIL": "${input:atlassianEmail}",
+        "ATLASSIAN_TOKEN": "${input:atlassianToken}"
+      },
+      "alwaysAllow": [
+        "jira_search", "jira_get_issue", "jira_list_projects",
+        "jira_get_issue_comments", "jira_get_sprint_issues"
+      ]
+    },
+    "databricks": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["<USER_HOME>\\databricks_mcp.py"],
+      "env": {
+        "DATABRICKS_HOST": "https://your-databricks-host.cloud.databricks.com",
+        "DATABRICKS_TOKEN": "<DATABRICKS-PAT-TOKEN>",
+        "SSL_CERT_FILE": "<USER_HOME>\\corporate_root_ca.pem",
+        "REQUESTS_CA_BUNDLE": "<USER_HOME>\\corporate_root_ca.pem"
+      },
+      "alwaysAllow": [
+        "get_current_user", "list_catalogs", "list_schemas", "list_tables",
+        "describe_table", "execute_sql", "list_warehouses", "list_clusters",
+        "list_jobs", "analyze_job_run", "get_job_run_logs"
+      ]
+    }
+  }
+}

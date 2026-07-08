@@ -1,0 +1,46 @@
+﻿bundle:
+  name: iceberg-migration-tracker
+
+variables:
+  catalog:
+    description: Unity Catalog name
+    default: dev_analytics
+  schema:
+    description: Schema for tracker assets
+    default: iceberg_migration_tracker
+  source_table:
+    description: Fully qualified source table for migration inventory
+    default: dev_analytics.raw.migration_inventory_source
+
+sync:
+  include:
+    - sql/**
+    - tests/**
+    - docs/**
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://<your-databricks-host>.cloud.databricks.com
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: dev_analytics
+      schema: iceberg_migration_tracker
+  uat:
+    mode: production
+    workspace:
+      host: https://<your-databricks-host>.cloud.databricks.com
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: uat_analytics
+      schema: iceberg_migration_tracker
+  prod:
+    mode: production
+    workspace:
+      host: https://<your-databricks-host>.cloud.databricks.com
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: prod_analytics
+      schema: iceberg_migration_tracker

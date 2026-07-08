@@ -1,0 +1,23 @@
+Create a marketing analytics dashboard for the `unifd_mktg_anltcs.tgt.ott_actvt_fct` table.
+
+Include the following pages and tiles:
+
+Page 1 — OTT Activity Summary
+- KPI counter: total OTT activities (count of ott_actvt_fct_key)
+- KPI counter: distinct accounts (count distinct acct_key)
+- KPI counter: distinct sales channels (count distinct sls_chnl)
+- Bar chart: activity count by activity type (actvt_type) — top 10
+- Bar chart: activity count by sales channel (sls_chnl) — top 10
+
+Page 2 — Activity Trends
+- Line chart: daily activity volume over time using actvt_dt
+- Line chart: monthly activity volume using actvt_yrmo
+- Grouped bar chart: activity count by actvt_type per month (actvt_yrmo)
+
+Page 3 — Disconnect / Discount Analysis
+- Bar chart: top disconnect reasons (disc_rsn_desc) by count
+- Table: discount channel breakdown (disc_sls_chnl, disc_agnt_cd, count)
+
+Global filter: actvt_type with multi-select
+Global filter: sls_chnl with multi-select
+Global filter: actvt_dt date range picker
