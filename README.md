@@ -1,7 +1,42 @@
 # Enterprise MCP Agent Orchestrator
 
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS%20Code-Agent%20Mode-007ACC?logo=visualstudiocode&logoColor=white)
+![MCP](https://img.shields.io/badge/Model%20Context%20Protocol-MCP-8A2BE2)
+![Snowflake](https://img.shields.io/badge/Snowflake-SQL%20Optimizer-29B5E8?logo=snowflake&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 > **A production-grade multi-agent AI orchestration system built with GitHub Copilot Agent Mode and the Model Context Protocol (MCP).**
-> Automates full-lifecycle intelligence reporting for enterprise ETL data pipelines — resolving jobs, tracing lineage, optimizing SQL, analyzing pipeline health, and surfacing data quality alerts — all merged into a single on-demand HTML report.
+> One command gives you a complete intelligence report for any ETL pipeline — source lineage, optimized SQL, live pipeline health, and data quality alerts — merged into a single self-contained HTML report.
+
+---
+
+## Screenshots
+
+### VS Code Extension — One-Click Orchestrator UI
+The project ships with a custom VS Code sidebar extension. Select your repository and job, then click **Run in Copilot Chat** to trigger the full agent pipeline without typing a single command.
+
+![MCP Orchestrator VS Code Extension](docs/screenshots/vscode-extension-ui.png)
+
+---
+
+## Why MCP (Model Context Protocol)?
+
+Traditional AI assistants are limited to text. MCP changes that — it lets an AI agent call **live tools** (APIs, databases, file systems) as part of its reasoning loop, the same way a developer would.
+
+This project uses MCP to give GitHub Copilot real-time access to 7 enterprise systems simultaneously:
+
+```
+GitHub Copilot Agent  ──MCP──▶  GitHub   (read SQL files, job configs)
+                      ──MCP──▶  Snowflake (query warehouse, explain plans)
+                      ──MCP──▶  Dagster   (pipeline schedules, run history)
+                      ──MCP──▶  Monte Carlo (data quality monitors, incidents)
+                      ──MCP──▶  Confluence (documentation search)
+                      ──MCP──▶  Jira      (sprint and issue tracking)
+                      ──MCP──▶  Databricks (big data workload analysis)
+```
+
+The AI doesn't just chat about your pipelines — it **calls them directly** and produces structured, verifiable artifacts.
 
 ---
 
@@ -9,7 +44,8 @@
 
 ```mermaid
 flowchart TD
-    USER([User Input\njob_name or table_name]) --> ORCH
+    USER([User Input\njob_name or table_name]) --> EXT
+    EXT["VS Code Extension\nOne-click launcher"] --> ORCH
 
     subgraph ORCH["Master Orchestrator Agent (mcp-orchestrator)"]
         GATE["Step -1: Dagster Job Validation\nMANDATORY GATE — stops if job retired"]
@@ -166,18 +202,26 @@ Copy-Item path\to\your\cert.pem "$env:USERPROFILE\corporate_root_ca.pem"
 code .
 ```
 
-Then fill in the `<YOUR-...>` placeholders in `.vscode/mcp.json` and open GitHub Copilot Chat → Agent Mode → select **mcp-orchestrator**.
+Then fill in the `<YOUR-...>` placeholders in `.vscode/mcp.json` and open GitHub Copilot Chat (`Ctrl+Alt+I`) → switch to **Agent Mode** → select **mcp-orchestrator** from the agent dropdown.
 
 ### Usage
 
+Trigger by job name (most common):
 ```
-job_name=pipeline_example_ddly repo=campaign
+job_name=your_pipeline_name repo=cmpgn
 ```
 
-Or resolve by target table:
+Trigger by target table name (the orchestrator auto-resolves the job):
 ```
-table_name=DB.SCHEMA.TABLE_EXAMPLE_HIST
+table_name=YOUR_DATABASE.YOUR_SCHEMA.YOUR_TABLE
 ```
+
+Run a subset of skills only:
+```
+job_name=your_pipeline_name repo=uma skills=[resolver,dagster,montecarlo]
+```
+
+Or use the **VS Code Extension** (see screenshot above) — select repo and job name from dropdowns, click **Run in Copilot Chat**.
 
 VS Code will prompt for each credential the first time. No tokens are ever stored in files.
 
@@ -191,7 +235,9 @@ VS Code will prompt for each credential the first time. No tokens are ever store
 
 ## Author
 
-**Sushil Kumar Singh**  
-[LinkedIn](https://www.linkedin.com/in/sushil-kumar-singh) · [GitHub](https://github.com/singhsushil-nexgenai)
+**Sushil Kumar Singh** — Data Engineer & Agentic AI Builder
 
-> Built as a production system to automate ETL pipeline intelligence reporting at enterprise scale using GitHub Copilot's agentic AI capabilities and the Model Context Protocol.
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sushilkumarsingh-nexgenai)
+[![GitHub](https://img.shields.io/badge/GitHub-singhsushil--nexgenai-181717?logo=github&logoColor=white)](https://github.com/singhsushil-nexgenai)
+
+> Built as a production system at enterprise scale. Demonstrates end-to-end agentic AI design: custom MCP server development, multi-agent orchestration, prompt engineering as software engineering, and real-time enterprise API integration — all using GitHub Copilot's Agent Mode and the Model Context Protocol.
