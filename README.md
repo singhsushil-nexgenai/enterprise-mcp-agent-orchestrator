@@ -101,7 +101,7 @@ flowchart TD
 | Agent | Description |
 |---|---|
 | `mcp-orchestrator` | Master orchestrator. Accepts `job_name` or `table_name`, sequences all 6 skills, merges outputs into one HTML report. |
-| `Agent1` (BatchOptimizer) | Batch processing agent. Processes all job folders in the repo in batches of 10 — SQL optimization then HTML report generation. |
+| `BatchOptimizer` | Batch processing agent. Processes all job folders across a repo in batches of 10 — runs SQL optimization then HTML report generation for each batch. |
 
 ### Skills (`.github/skills/`)
 
@@ -147,6 +147,8 @@ enterprise-mcp-agent-orchestrator/
 │       └── dagster-job-lineage/SKILL.md
 ├── .vscode/
 │   └── mcp.json                     # MCP server configuration (all credentials via VS Code prompts)
+├── docs/
+│   └── screenshots/                 # UI screenshots for README
 ├── enterprise-orchestrator-ui/      # Web UI + REST API for browser-based job submission
 │   ├── backend/                     # FastAPI + async job queue (Python)
 │   ├── frontend/                    # React web UI
@@ -154,6 +156,7 @@ enterprise-mcp-agent-orchestrator/
 ├── setup/
 │   ├── README.md                    # Team onboarding guide
 │   ├── install.ps1                  # One-command setup script (Windows)
+│   ├── vscode-extension/            # Custom VS Code sidebar extension
 │   └── mcp_servers/                 # Custom Python MCP server scripts
 └── AGENTS.md                        # Agent architecture reference
 ```
@@ -195,7 +198,7 @@ cd enterprise-mcp-agent-orchestrator
 Set-ExecutionPolicy -Scope Process Bypass
 .\setup\install.ps1
 
-# 3. Place your corporate SSL certificate
+# 3. (Optional) If your organization uses a custom SSL certificate, place it here:
 Copy-Item path\to\your\cert.pem "$env:USERPROFILE\corporate_root_ca.pem"
 
 # 4. Open in VS Code
@@ -229,7 +232,7 @@ VS Code will prompt for each credential the first time. No tokens are ever store
 
 ## Tech Stack
 
-`GitHub Copilot Agent Mode` · `Model Context Protocol (MCP)` · `Python 3.14` · `Snowflake` · `Dagster Cloud` · `Monte Carlo` · `Atlassian Confluence` · `Jira` · `Databricks` · `FastAPI` · `React` · `Docker` · `GraphQL` · `PowerShell`
+`GitHub Copilot Agent Mode` · `Model Context Protocol (MCP)` · `Python 3.10+` · `Snowflake` · `Dagster Cloud` · `Monte Carlo` · `Atlassian Confluence` · `Jira` · `Databricks` · `FastAPI` · `React` · `Docker` · `GraphQL` · `PowerShell`
 
 ---
 
