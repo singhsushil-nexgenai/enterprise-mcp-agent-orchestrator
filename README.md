@@ -4,7 +4,7 @@
 ![VS Code](https://img.shields.io/badge/VS%20Code-Agent%20Mode-007ACC?logo=visualstudiocode&logoColor=white)
 ![MCP](https://img.shields.io/badge/Model%20Context%20Protocol-MCP-8A2BE2)
 ![Snowflake](https://img.shields.io/badge/Snowflake-SQL%20Optimizer-29B5E8?logo=snowflake&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
+![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)
 
 > **A production-grade multi-agent AI orchestration system built with GitHub Copilot Agent Mode and the Model Context Protocol (MCP).**
 > One command gives you a complete intelligence report for any ETL pipeline — source lineage, optimized SQL, live pipeline health, and data quality alerts — merged into a single self-contained HTML report.
