@@ -20,6 +20,27 @@ The project ships with a custom VS Code sidebar extension. Select your repositor
 
 ---
 
+### Sample Report Output
+
+The orchestrator produces a structured 8-section HTML intelligence report for each pipeline. Below are screenshots from a real run.
+
+#### Report Landing — All 5 Skills Complete
+Full execution summary showing every skill running end-to-end: job resolver, ETL lineage, SQL optimization, Dagster ops intelligence, and Monte Carlo DQ — all with `COMPLETE` status.
+
+![MCP Report — Execution Summary](docs/screenshots/Output/s0_home_landing.png)
+
+#### ETL Lineage & Task Flow
+Interactive source-to-target lineage map with full task DAG metrics. Automatically generated from the pipeline's JSON config — no manual diagramming.
+
+![MCP Report — ETL Lineage](docs/screenshots/Output/s3_etl_lineage_task_flow.png)
+
+#### SQL Optimization Results
+Per-file SQL analysis showing HIGH / MEDIUM / LOW / STUB impact levels across all SQL files in the job. Identifies CTE refactor opportunities, `SELECT *` antipatterns, and oversized files flagged as stubs.
+
+![MCP Report — SQL Optimization](docs/screenshots/Output/s4_sql_optimization_results.png)
+
+---
+
 ## Why MCP (Model Context Protocol)?
 
 Traditional AI assistants are limited to text. MCP changes that — it lets an AI agent call **live tools** (APIs, databases, file systems) as part of its reasoning loop, the same way a developer would.
