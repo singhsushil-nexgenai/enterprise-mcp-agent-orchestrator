@@ -9,7 +9,7 @@
     {
       "id": "dagsterToken",
       "type": "promptString",
-      "description": "Dagster Cloud API token — get from https://[Company].dagster.cloud → Settings → User tokens",
+      "description": "Dagster Cloud API token — get from your Dagster Cloud instance → Settings → User tokens",
       "password": true
     },
     {
@@ -67,13 +67,13 @@
       "command": "${env:APPDATA}\\npm\\snowflake-mcp.cmd",
       "args": [],
       "env": {
-        "SNOWFLAKE_ACCOUNT":        "[Company]-dtvprod",
-        "SNOWFLAKE_USERNAME":       "<YOUR_EMAIL@MY[Company].COM>",
-        "SNOWFLAKE_AUTHENTICATOR":  "snowflake",
-        "SNOWFLAKE_PASSWORD":        "${input:snowflakePAT}",
-        "SNOWFLAKE_ROLE":           "<YOUR_SNOWFLAKE_ROLE>",
-        "SNOWFLAKE_WAREHOUSE":      "CDO_MKTG_ANLTCS_XL_WH",
-        "SNOWFLAKE_DATABASE":       "<YOUR_SNOWFLAKE_DATABASE>",
+        "SNOWFLAKE_ACCOUNT":             "<YOUR-SNOWFLAKE-ACCOUNT>",
+        "SNOWFLAKE_USERNAME":            "<YOUR-EMAIL@YOUR-COMPANY.COM>",
+        "SNOWFLAKE_AUTHENTICATOR":       "snowflake",
+        "SNOWFLAKE_PASSWORD":            "${input:snowflakePAT}",
+        "SNOWFLAKE_ROLE":                "<YOUR-SNOWFLAKE-ROLE>",
+        "SNOWFLAKE_WAREHOUSE":           "<YOUR-SNOWFLAKE-WAREHOUSE>",
+        "SNOWFLAKE_DATABASE":            "<YOUR-SNOWFLAKE-DATABASE>",
         "SNOWFLAKE_SCHEMA":         "PUBLIC",
         "NODE_TLS_REJECT_UNAUTHORIZED": "0",
         "NODE_EXTRA_CA_CERTS":      "${env:USERPROFILE}\\corporate_root_ca.pem"
