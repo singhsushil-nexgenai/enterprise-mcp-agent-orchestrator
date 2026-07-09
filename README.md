@@ -259,9 +259,9 @@ VS Code will prompt for each credential the first time. No tokens are ever store
 
 ## Author
 
-**Sushil Kumar Singh** — Data Engineer & Agentic AI Builder
+**Sushil Kumar Singh** — Gen AI & Agentic AI Engineer | Forward Deployed Engineer
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sushilkumarsingh-nexgenai)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sushil-singh-498bb223)
 [![GitHub](https://img.shields.io/badge/GitHub-singhsushil--nexgenai-181717?logo=github&logoColor=white)](https://github.com/singhsushil-nexgenai)
 
 > Built as a production system at enterprise scale. Demonstrates end-to-end agentic AI design: custom MCP server development, multi-agent orchestration, prompt engineering as software engineering, and real-time enterprise API integration — all using GitHub Copilot's Agent Mode and the Model Context Protocol.
